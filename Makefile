@@ -25,6 +25,6 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 clean:
 	rm -rf $(TARGET) $(BUILD_DIR)
 
-DEBUG_FLAGS := -glldb
+DEBUG_FLAGS := -glldb -fsanitize=address
 debug: C_FLAGS += $(DEBUG_FLAGS)
 debug: $(TARGET)

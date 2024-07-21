@@ -49,6 +49,7 @@ int main(int argc, char **argv) {
     parse(t_stack, 0, root);
     printf("%f\n", evaluate(root));
 
+    destroyNode(root);
     destroyTokenStack(t_stack);
 
     return 0;

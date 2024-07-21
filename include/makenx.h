@@ -55,6 +55,8 @@ typedef struct node {
     double value;
 } Node;
 
+void destroyNode(Node *n);
+
 void parse(TokenStack *t_stack, size_t stack_index, Node *current_node);
 double evaluate(Node *n);
 
