@@ -37,6 +37,17 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
 
                 current_node->sub_nodes[fill] = n;
                 fill++;
+            } else if (strncmp(t.text, "mul", 3) == 0) {
+                n->sub_nodes_count = 2;
+                n->sub_nodes = malloc(sizeof(Node *) * n->sub_nodes_count);
+                n->sym = MULTIPLY;
+                n->value = NAN;
+
+                stack_index++;
+                parse(t_stack, stack_index, n);
+
+                current_node->sub_nodes[fill] = n;
+                fill++;
             }
             break;
         case NUMERIC:
