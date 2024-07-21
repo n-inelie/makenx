@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
     tokenize(&stats, t_stack, buffer);
 
     if (stats.l_paren_count != stats.r_paren_count) {
-        fprintf(stderr, "Error: Failed to parse, missing parenthesis");
+        fprintf(stderr, "Error: Failed to parse, missing parenthesis\n");
         exit(EXIT_FAILURE);
     }
 

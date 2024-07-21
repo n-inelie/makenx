@@ -37,4 +37,6 @@ typedef struct {
 
 void tokenize(Stats *stats, TokenStack *t_stack, char *str);
 
+void parse(TokenStack *t_stack);
+
 #endif
