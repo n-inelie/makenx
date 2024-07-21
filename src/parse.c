@@ -1,7 +1,7 @@
 #include "makenx.h"
 #include <string.h>
 
-void parse(TokenStack *t_stack) {
+void parse(Node *root, TokenStack *t_stack) {
     Token t;
     for (size_t i = 0; i < t_stack->size; ++i) {
         t = t_stack->tokens[i];
@@ -17,6 +17,9 @@ void parse(TokenStack *t_stack) {
             case OPERATOR:
                 break;
             case STRING:
+                if (strncmp(t.text, "add", 3) == 0) {
+
+                }
                 break;
             case NUMERIC:
                 break;

@@ -37,6 +37,21 @@ typedef struct {
 
 void tokenize(Stats *stats, TokenStack *t_stack, char *str);
 
-void parse(TokenStack *t_stack);
+typedef enum {
+    ADD,
+    SUBTRACT,
+    MULTIPLY,
+    DIVIDE,
+    POW,
+    VARIABLE,
+    NUMBER,
+} Symbol;
+
+typedef struct node{
+    Symbol sym; 
+    struct node *sub_nodes;
+} Node;
+
+void parse(Node *root, TokenStack *t_stack);
 
 #endif

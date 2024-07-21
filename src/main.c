@@ -22,8 +22,7 @@ int main(int argc, char **argv) {
 
     if (strncmp(buffer, "help", 4) == 0) {
         printf("help        Prints this message\n"
-               "<string>    Evaluates the given string\n"
-               "<file_path> Evaluates the expression given in the file\n");
+               "<string>    Evaluates the given string\n");
     }
 
     TokenStack *t_stack = CreateStack(16);
