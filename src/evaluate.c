@@ -31,7 +31,7 @@ double evaluate(Node *n) {
         sub_nodes_value = malloc(sizeof(double) * 2);
         sub_nodes_value[0] = evaluate(n->sub_nodes[0]);
         sub_nodes_value[1] = evaluate(n->sub_nodes[1]);
-        printf("%f, %f\n", sub_nodes_value[0], sub_nodes_value[1]);
+        // printf("%f, %f\n", sub_nodes_value[0], sub_nodes_value[1]);
         switch (n->sym) {
         case ADD:
             result =  sub_nodes_value[0] + sub_nodes_value[1];
