@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #define BUFFER_SIZE 4096
 
@@ -39,6 +40,16 @@ int main(int argc, char **argv) {
         printf("%s\n", t_stack->tokens[i].text);
     }
 
+    Node *root = malloc(sizeof(Node));
+    root->sym = ROOT;
+    root->sub_nodes_count = 1;
+    root->sub_nodes = malloc(sizeof(Node *));
+    root->value = NAN;
+
+    parse(t_stack, 0, root);
+    printf("%f\n", evaluate(root));
+
+    free(root);
     destroyTokenStack(t_stack);
 
     return 0;

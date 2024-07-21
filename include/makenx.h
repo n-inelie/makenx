@@ -45,13 +45,17 @@ typedef enum {
     POW,
     VARIABLE,
     NUMBER,
+    ROOT,
 } Symbol;
 
-typedef struct node{
-    Symbol sym; 
-    struct node *sub_nodes;
+typedef struct node {
+    Symbol sym;
+    size_t sub_nodes_count;
+    struct node **sub_nodes;
+    double value;
 } Node;
 
-void parse(Node *root, TokenStack *t_stack);
+void parse(TokenStack *t_stack, size_t stack_index, Node *current_node);
+double evaluate(Node *n);
 
 #endif

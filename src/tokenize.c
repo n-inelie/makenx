@@ -26,7 +26,7 @@ static inline size_t handleNumeric(TokenStack *t_stack, char *str,
     char *substring = malloc(sizeof(char) * (j - index + 1));
     strncpy(substring, str + index, j - index);
     substring[j - 1 + 1] = '\0';
-    appendToken(t_stack, (Token){STRING, substring});
+    appendToken(t_stack, (Token){NUMERIC, substring});
     return j;
 }
 
