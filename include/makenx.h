@@ -36,6 +36,7 @@ typedef struct {
 } Stats;
 
 void tokenize(Stats *stats, TokenStack *t_stack, char *str);
+void filterTokenStack(TokenStack *t_stack);
 
 typedef enum {
     ADD,

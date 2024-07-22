@@ -32,6 +32,7 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
         case PERIOD:
             break;
         case OPERATOR:
+            fprintf(stderr, "Error: (dev) Could not filter the token stack\n");
             break;
         case STRING:
             switch (OMap[hash(t.text)]) {

@@ -12,3 +12,6 @@ ln
 log10
 log2
 logab
+sin
+cos
+tan
