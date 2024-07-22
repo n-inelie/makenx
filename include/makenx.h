@@ -9,7 +9,6 @@ typedef enum {
     L_PAREN,
     R_PAREN,
     COMMA,
-    PERIOD,
     OPERATOR,
 } TokenType;
 
@@ -56,6 +55,7 @@ typedef enum {
     VARIABLE,
     NUMBER,
     ROOT,
+    PERIOD,
 } Symbol;
 
 extern Symbol OMap[1024];

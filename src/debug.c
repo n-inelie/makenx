@@ -39,6 +39,9 @@ void printNode(Node *n, size_t padding) {
     case NUMBER:
         printf("number ");
         break;
+    case PERIOD:
+        printf("period ");
+        break;
     default:
         break;
     }

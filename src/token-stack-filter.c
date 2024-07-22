@@ -30,6 +30,11 @@ void filterTokenStack(TokenStack *t_stack) {
             case '!':
                 t_new = (Token){STRING, "fact"};
                 break;
+            case '.':
+                t_new = (Token){STRING, "period"};
+                break;
+            default:
+                break;
             }
             if (temp.type == R_PAREN) {
                 size_t j = i - 2;

@@ -15,6 +15,7 @@ static inline void addMapItem(char *str, Symbol sym) {
 }
 
 void initOMap(void) {
+    addMapItem("period", PERIOD);
     addMapItem("add", ADD);
     addMapItem("mul", MULTIPLY);
     addMapItem("sub", SUBTRACT);

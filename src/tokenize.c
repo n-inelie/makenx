@@ -61,7 +61,7 @@ void tokenize(Stats *stats, TokenStack *t_stack, char *str) {
             stats->comma_count++;
             break;
         case '.':
-            appendToken(t_stack, (Token){PERIOD, "."});
+            appendToken(t_stack, (Token){OPERATOR, "."});
             stats->period_count++;
             break;
         case '+':

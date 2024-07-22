@@ -34,8 +34,6 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
             break;
         case COMMA:
             break;
-        case PERIOD:
-            break;
         case OPERATOR:
             fprintf(stderr, "Error: (dev) Could not filter the token stack\n");
             break;
@@ -119,6 +117,11 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
+            case PERIOD:
+                handleStringNode(n + fill, PERIOD, 2);
+                parse(t_stack, ++i, n + fill);
+                current_node->sub_nodes[fill] = n + fill;
+                fill++;
             default:
                 break;
             }

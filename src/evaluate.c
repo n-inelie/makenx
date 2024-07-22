@@ -74,6 +74,9 @@ double evaluate(Node *n) {
         case LOGAB:
             result = log(sub_nodes_value[0]) / log(sub_nodes_value[1]);
             break;
+        case PERIOD:
+            result = period(sub_nodes_value[0], sub_nodes_value[1]);
+            break;
         default:
             fprintf(stderr,
                     "Error: (dev) Invalid matching of symbol and "
