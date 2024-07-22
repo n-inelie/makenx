@@ -29,6 +29,10 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
             paren_pair_count++;
             break;
         case R_PAREN:
+            if (paren_pair_count == 0) {
+                fprintf(stderr, "Error: Too many right parens\n");
+                exit(EXIT_FAILURE);
+            }
             if (paren_pair_count != 0) {
                 paren_pair_count--;
                 continue;
