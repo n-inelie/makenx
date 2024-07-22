@@ -33,7 +33,7 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
                 paren_pair_count--;
                 continue;
             }
-            if (i - stack_index != fill) {
+            if (i - stack_index - 1 != fill) {
                 fprintf(stderr, "Error: Not enough args provided for %s\n",
                         t_stack->tokens[stack_index - 1].text);
                 exit(EXIT_FAILURE);
