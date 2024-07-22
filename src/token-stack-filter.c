@@ -55,7 +55,7 @@ void filterTokenStack(TokenStack *t_stack) {
                 memmove(t_stack->tokens + j + 1, t_stack->tokens + j,
                         sizeof(Token) * (i - j));
                 t_stack->tokens[j] = t_new;
-                continue;
+               continue;
             } else if (t_stack->tokens[i - 1].type == L_PAREN) {
                 fprintf(
                     stderr,

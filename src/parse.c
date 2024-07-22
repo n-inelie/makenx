@@ -16,6 +16,7 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
     size_t fill = 0;
     Token t;
     Symbol sym;
+    size_t paren_pair_count = 0;
     Node *n = malloc(sizeof(Node) * current_node->sub_nodes_count);
 
     for (size_t i = stack_index; i < t_stack->size; ++i) {
@@ -25,9 +26,14 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
         t = t_stack->tokens[i];
         switch (t.type) {
         case L_PAREN:
+            paren_pair_count++;
             break;
         case R_PAREN:
-            if (i - stack_index - 1 != fill) {
+            if (paren_pair_count != 0) {
+                paren_pair_count--;
+                continue;
+            }
+            if (i - stack_index != fill) {
                 fprintf(stderr, "Error: Not enough args provided for %s\n",
                         t_stack->tokens[stack_index - 1].text);
                 exit(EXIT_FAILURE);
@@ -46,6 +52,7 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case MULTIPLY:
                 handleStringNode(n + fill, MULTIPLY, 2);
@@ -142,6 +149,13 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
             current_node->sub_nodes[fill] = n + fill;
             fill++;
             break;
+        }
+        if (i == t_stack->size - 1) {
+            if (fill != current_node->sub_nodes_count) {
+                fprintf(stderr, "Error: Not enough args provided for %s\n",
+                        t_stack->tokens[stack_index - 1].text);
+                exit(EXIT_FAILURE);
+            }
         }
     }
 }
