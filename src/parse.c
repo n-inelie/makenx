@@ -48,6 +48,7 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
             sym = GetSymbol(t.text);
             switch (sym) {
             case ADD:
+            case MULTIPLY:
             case SUBTRACT:
             case DIVIDE:
             case POW:
