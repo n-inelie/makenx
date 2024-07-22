@@ -21,7 +21,7 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
         if (fill == current_node->sub_nodes_count) {
             break;
         }
-        t = t_stack->tokens[stack_index];
+        t = t_stack->tokens[i];
         switch (t.type) {
         case L_PAREN:
             break;
@@ -38,92 +38,79 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
             switch (OMap[hash(t.text)]) {
             case ADD:
                 handleStringNode(n + fill, ADD, 2);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
             case MULTIPLY:
                 handleStringNode(n + fill, MULTIPLY, 2);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
             case SUBTRACT:
                 handleStringNode(n + fill, SUBTRACT, 2);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
             case DIVIDE:
                 handleStringNode(n + fill, DIVIDE, 2);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
             case POW:
                 handleStringNode(n + fill, POW, 2);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
             case FACT:
                 handleStringNode(n + fill, FACT, 1);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
             case LN:
                 handleStringNode(n + fill, LN, 1);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
             case LOG10:
                 handleStringNode(n + fill, LOG10, 1);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
             case LOG2:
                 handleStringNode(n + fill, LOG2, 1);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
             case LOGAB:
                 handleStringNode(n + fill, LOGAB, 2);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
             case SIN:
                 handleStringNode(n + fill, SIN, 1);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
             case COS:
                 handleStringNode(n + fill, COS, 1);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
             case TAN:
                 handleStringNode(n + fill, TAN, 1);
-                stack_index++;
-                parse(t_stack, stack_index, n + fill);
+                parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 break;
@@ -136,8 +123,6 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
             n[fill].sub_nodes = NULL;
             n[fill].sym = NUMBER;
             n[fill].value = (double)atoi(t.text);
-
-            stack_index++;
 
             current_node->sub_nodes[fill] = n + fill;
             fill++;

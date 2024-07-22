@@ -1,4 +1,7 @@
 #include "makenx.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 void filterTokenStack(TokenStack *t_stack) {
     Token t;
@@ -27,6 +30,32 @@ void filterTokenStack(TokenStack *t_stack) {
             case '!':
                 t_new = (Token){STRING, "fact"};
                 break;
+            }
+            if (temp.type == R_PAREN) {
+                size_t j = i - 2;
+                size_t r_paren_count = 1;
+                size_t l_paren_count = 0;
+                while (j >= 0) {
+                    if (t_stack->tokens[j].type == R_PAREN) {
+                        r_paren_count++;
+                    }
+                    if (t_stack->tokens[j].type == L_PAREN) {
+                        l_paren_count++;
+                        if (l_paren_count == r_paren_count) {
+                            break;
+                        }
+                    }
+                    j--;
+                }
+                memmove(t_stack->tokens + j + 1, t_stack->tokens + j,
+                        sizeof(Token) * (i - j));
+                t_stack->tokens[j] = t_new;
+                continue;
+            } else if (t_stack->tokens[i - 1].type == L_PAREN) {
+                fprintf(
+                    stderr,
+                    "Error: Invalid positioning of openining parenthesis '('");
+                exit(EXIT_FAILURE);
             }
             t_stack->tokens[i - 1] = t_new;
             t_stack->tokens[i] = temp;
