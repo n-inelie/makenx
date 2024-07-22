@@ -1,0 +1,14 @@
+Operators to be done:
+(all are case insensitive)
+add
+mul
+sub
+div
+pow
+fact
+sqrt
+cbrt
+ln
+log10
+log2
+logab

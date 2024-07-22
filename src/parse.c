@@ -26,9 +26,11 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
         case OPERATOR:
             break;
         case STRING:
-            if (strncmp(t.text, "add", 3) == 0) {
+            switch (OMap[hash(t.text)]) {
+            case ADD:
                 n[fill].sub_nodes_count = 2;
-                n[fill].sub_nodes = malloc(sizeof(Node *) * n[fill].sub_nodes_count);
+                n[fill].sub_nodes =
+                    malloc(sizeof(Node *) * n[fill].sub_nodes_count);
                 n[fill].sym = ADD;
                 n[fill].value = NAN;
 
@@ -37,9 +39,11 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
 
                 current_node->sub_nodes[fill] = n;
                 fill++;
-            } else if (strncmp(t.text, "mul", 3) == 0) {
+                break;
+            case MULTIPLY:
                 n[fill].sub_nodes_count = 2;
-                n[fill].sub_nodes = malloc(sizeof(Node *) * n[fill].sub_nodes_count);
+                n[fill].sub_nodes =
+                    malloc(sizeof(Node *) * n[fill].sub_nodes_count);
                 n[fill].sym = MULTIPLY;
                 n[fill].value = NAN;
 
@@ -48,6 +52,11 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
 
                 current_node->sub_nodes[fill] = n;
                 fill++;
+                break;
+            default:
+                break;
+            }
+            if (strncmp(t.text, "mul", 3) == 0) {
             }
             break;
         case NUMERIC:

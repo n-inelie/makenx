@@ -48,6 +48,10 @@ typedef enum {
     ROOT,
 } Symbol;
 
+extern Symbol OMap[1024];
+void initOMap(void);
+size_t hash(char *str);
+
 typedef struct node {
     Symbol sym;
     size_t sub_nodes_count;
@@ -59,5 +63,6 @@ void destroyNode(Node *n);
 
 void parse(TokenStack *t_stack, size_t stack_index, Node *current_node);
 double evaluate(Node *n);
+
 
 #endif
