@@ -37,10 +37,11 @@ void filterTokenStack(TokenStack *t_stack) {
                 break;
             }
             if (temp.type == R_PAREN) {
-                size_t j = i - 2;
+                size_t j = i - 1;
                 size_t r_paren_count = 1;
                 size_t l_paren_count = 0;
-                while (j >= 0) {
+                while (j > 0) {
+                    j--;
                     if (t_stack->tokens[j].type == R_PAREN) {
                         r_paren_count++;
                     }
@@ -50,7 +51,13 @@ void filterTokenStack(TokenStack *t_stack) {
                             break;
                         }
                     }
-                    j--;
+                }
+                if (j == 0) {
+                    if (l_paren_count != r_paren_count) {
+                        fprintf(stderr, "Error: Failed to parse, invalid usage "
+                                        "of parenthesis\n");
+                        exit(EXIT_FAILURE);
+                    }
                 }
                 memmove(t_stack->tokens + j + 1, t_stack->tokens + j,
                         sizeof(Token) * (i - j));

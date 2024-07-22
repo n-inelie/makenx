@@ -27,14 +27,7 @@ TokenStack *CreateStack(size_t reserve);
 void destroyTokenStack(TokenStack *t_stack);
 void appendToken(TokenStack *t_stack, Token t);
 
-typedef struct {
-    size_t l_paren_count;
-    size_t r_paren_count;
-    size_t comma_count;
-    size_t period_count;
-} Stats;
-
-void tokenize(Stats *stats, TokenStack *t_stack, char *str);
+void tokenize(TokenStack *t_stack, char *str);
 void filterTokenStack(TokenStack *t_stack);
 
 typedef enum {

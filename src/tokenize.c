@@ -30,7 +30,7 @@ static inline size_t handleNumeric(TokenStack *t_stack, char *str,
     return j;
 }
 
-void tokenize(Stats *stats, TokenStack *t_stack, char *str) {
+void tokenize(TokenStack *t_stack, char *str) {
     size_t str_len = strlen(str);
     size_t i = 0;
     char c;
@@ -50,19 +50,15 @@ void tokenize(Stats *stats, TokenStack *t_stack, char *str) {
         switch (c) {
         case '(':
             appendToken(t_stack, (Token){L_PAREN, "("});
-            stats->l_paren_count++;
             break;
         case ')':
             appendToken(t_stack, (Token){R_PAREN, ")"});
-            stats->r_paren_count++;
             break;
         case ',':
             appendToken(t_stack, (Token){COMMA, ","});
-            stats->comma_count++;
             break;
         case '.':
             appendToken(t_stack, (Token){OPERATOR, "."});
-            stats->period_count++;
             break;
         case '+':
             appendToken(t_stack, (Token){OPERATOR, "+"});
