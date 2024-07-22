@@ -1,4 +1,5 @@
 #include "makenx.h"
+#include "mathex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,7 +39,7 @@ double evaluate(Node *n) {
             result = log2(sub_nodes_value[0]);
             break;
         case FACT:
-            // TODO
+            result = factorial(sub_nodes_value[0]);
             break;
         default:
             fprintf(stderr,
@@ -83,5 +84,6 @@ double evaluate(Node *n) {
         }
     }
     free(sub_nodes_value);
+    n->value = result;
     return result;
 }

@@ -1,8 +1,8 @@
 #include "makenx.h"
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 
 #define BUFFER_SIZE 4096
 
@@ -51,7 +51,12 @@ int main(int argc, char **argv) {
 
     initOMap();
     parse(t_stack, 0, root);
+
+    printNode(root, 0);
+
     printf("%f\n", evaluate(root));
+
+    printNode(root, 0);
 
     destroyNode(root);
     destroyTokenStack(t_stack);

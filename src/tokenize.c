@@ -79,6 +79,8 @@ void tokenize(Stats *stats, TokenStack *t_stack, char *str) {
         case '^':
             appendToken(t_stack, (Token){OPERATOR, "^"});
             break;
+        case '!':
+            appendToken(t_stack, (Token){OPERATOR, "!"});
         case ' ':
             i++;
             continue;

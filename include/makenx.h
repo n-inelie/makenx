@@ -74,5 +74,6 @@ void destroyNode(Node *n);
 void parse(TokenStack *t_stack, size_t stack_index, Node *current_node);
 double evaluate(Node *n);
 
+void printNode(Node *n, size_t padding);
 
 #endif
