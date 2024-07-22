@@ -4,6 +4,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+static inline void handleStringNode(Node *n, Symbol sym,
+                                    size_t sub_nodes_count) {
+    n->sub_nodes_count = sub_nodes_count;
+    n->sub_nodes = malloc(sizeof(Node) * sub_nodes_count);
+    n->sym = sym;
+    n->value = NAN;
+}
+
 void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
     size_t fill = 0;
     Token t;
@@ -28,35 +36,98 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
         case STRING:
             switch (OMap[hash(t.text)]) {
             case ADD:
-                n[fill].sub_nodes_count = 2;
-                n[fill].sub_nodes =
-                    malloc(sizeof(Node *) * n[fill].sub_nodes_count);
-                n[fill].sym = ADD;
-                n[fill].value = NAN;
-
+                handleStringNode(n + fill, ADD, 2);
                 stack_index++;
                 parse(t_stack, stack_index, n + fill);
-
                 current_node->sub_nodes[fill] = n;
                 fill++;
                 break;
             case MULTIPLY:
-                n[fill].sub_nodes_count = 2;
-                n[fill].sub_nodes =
-                    malloc(sizeof(Node *) * n[fill].sub_nodes_count);
-                n[fill].sym = MULTIPLY;
-                n[fill].value = NAN;
-
+                handleStringNode(n + fill, MULTIPLY, 2);
                 stack_index++;
                 parse(t_stack, stack_index, n + fill);
-
+                current_node->sub_nodes[fill] = n;
+                fill++;
+                break;
+            case SUBTRACT:
+                handleStringNode(n + fill, SUBTRACT, 2);
+                stack_index++;
+                parse(t_stack, stack_index, n + fill);
+                current_node->sub_nodes[fill] = n;
+                fill++;
+                break;
+            case DIVIDE:
+                handleStringNode(n + fill, DIVIDE, 2);
+                stack_index++;
+                parse(t_stack, stack_index, n + fill);
+                current_node->sub_nodes[fill] = n;
+                fill++;
+                break;
+            case POW:
+                handleStringNode(n + fill, POW, 2);
+                stack_index++;
+                parse(t_stack, stack_index, n + fill);
+                current_node->sub_nodes[fill] = n;
+                fill++;
+                break;
+            case FACT:
+                handleStringNode(n + fill, FACT, 1);
+                stack_index++;
+                parse(t_stack, stack_index, n + fill);
+                current_node->sub_nodes[fill] = n;
+                fill++;
+                break;
+            case LN:
+                handleStringNode(n + fill, LN, 1);
+                stack_index++;
+                parse(t_stack, stack_index, n + fill);
+                current_node->sub_nodes[fill] = n;
+                fill++;
+                break;
+            case LOG10:
+                handleStringNode(n + fill, LOG10, 1);
+                stack_index++;
+                parse(t_stack, stack_index, n + fill);
+                current_node->sub_nodes[fill] = n;
+                fill++;
+                break;
+            case LOG2:
+                handleStringNode(n + fill, LOG2, 1);
+                stack_index++;
+                parse(t_stack, stack_index, n + fill);
+                current_node->sub_nodes[fill] = n;
+                fill++;
+                break;
+            case LOGAB:
+                handleStringNode(n + fill, LOGAB, 2);
+                stack_index++;
+                parse(t_stack, stack_index, n + fill);
+                current_node->sub_nodes[fill] = n;
+                fill++;
+                break;
+            case SIN:
+                handleStringNode(n + fill, SIN, 1);
+                stack_index++;
+                parse(t_stack, stack_index, n + fill);
+                current_node->sub_nodes[fill] = n;
+                fill++;
+                break;
+            case COS:
+                handleStringNode(n + fill, COS, 1);
+                stack_index++;
+                parse(t_stack, stack_index, n + fill);
+                current_node->sub_nodes[fill] = n;
+                fill++;
+                break;
+            case TAN:
+                handleStringNode(n + fill, TAN, 1);
+                stack_index++;
+                parse(t_stack, stack_index, n + fill);
                 current_node->sub_nodes[fill] = n;
                 fill++;
                 break;
             default:
                 break;
-            }
-            if (strncmp(t.text, "mul", 3) == 0) {
             }
             break;
         case NUMERIC:
