@@ -31,9 +31,9 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    bool print_node = false;
+    bool print_node_flag = false;
     if (argc == 3 && strncmp(argv[2], "--tree", 6) == 0) {
-        print_node = true;
+        print_node_flag = true;
     } else if (argc != 2) {
         fprintf(stderr, "Error: Invalid arguments provided\n"
                         "Use 'help' to print "
@@ -41,11 +41,11 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    TokenStack *t_stack = CreateStack(16);
+    TokenStack *t_stack = create_token_stack(16);
 
     tokenize(t_stack, buffer);
 
-    filterTokenStack(t_stack);
+    filter_token_stack(t_stack);
 
     Node *root = malloc(sizeof(Node));
     root->sym = ROOT;
@@ -57,12 +57,12 @@ int main(int argc, char **argv) {
 
     printf("%f\n", evaluate(root));
 
-    if (print_node) {
-        printNode(root, 0);
+    if (print_node_flag) {
+        print_node(root, 0);
     }
 
-    destroyNode(root);
-    destroyTokenStack(t_stack);
+    destroy_node(root);
+    destroy_token_stack(t_stack);
 
     return 0;
 }

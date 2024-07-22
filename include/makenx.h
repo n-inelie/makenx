@@ -23,12 +23,12 @@ typedef struct {
     Token *tokens;
 } TokenStack;
 
-TokenStack *CreateStack(size_t reserve);
-void destroyTokenStack(TokenStack *t_stack);
-void appendToken(TokenStack *t_stack, Token t);
+TokenStack *create_token_stack(size_t reserve);
+void destroy_token_stack(TokenStack *t_stack);
+void append_token(TokenStack *t_stack, Token t);
 
 void tokenize(TokenStack *t_stack, char *str);
-void filterTokenStack(TokenStack *t_stack);
+void filter_token_stack(TokenStack *t_stack);
 
 typedef enum {
     ADD,
@@ -51,7 +51,7 @@ typedef enum {
     PERIOD,
 } Symbol;
 
-Symbol GetSymbol(char *str);
+Symbol get_symbol(char *str);
 
 typedef struct node {
     Symbol sym;
@@ -60,11 +60,11 @@ typedef struct node {
     double value;
 } Node;
 
-void destroyNode(Node *n);
+void destroy_node(Node *n);
 
 void parse(TokenStack *t_stack, size_t stack_index, Node *current_node);
 double evaluate(Node *n);
 
-void printNode(Node *n, size_t padding);
+void print_node(Node *n, size_t padding);
 
 #endif

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void filterTokenStack(TokenStack *t_stack) {
+void filter_token_stack(TokenStack *t_stack) {
     Token t;
     Token t_new;
     Token temp;

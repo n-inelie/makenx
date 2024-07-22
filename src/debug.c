@@ -1,7 +1,7 @@
 #include "makenx.h"
 #include <stdio.h>
 
-void printNode(Node *n, size_t padding) {
+void print_node(Node *n, size_t padding) {
     for (size_t i = 0; i < padding; ++i) {
         printf(" ");
     }
@@ -57,6 +57,6 @@ void printNode(Node *n, size_t padding) {
     printf("%f\n", n->value);
     padding += 2;
     for (size_t i = 0; i < n->sub_nodes_count; ++i) {
-        printNode(n->sub_nodes[i], padding);
+        print_node(n->sub_nodes[i], padding);
     }
 }

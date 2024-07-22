@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-static inline size_t handleAlpha(TokenStack *t_stack, char *str, size_t str_len,
+static inline size_t handle_alpha(TokenStack *t_stack, char *str, size_t str_len,
                                  size_t index) {
     size_t j = index;
     while (j < str_len && isalpha(str[j])) {
@@ -13,11 +13,11 @@ static inline size_t handleAlpha(TokenStack *t_stack, char *str, size_t str_len,
     char *substring = malloc(sizeof(char) * (j - index + 1));
     strncpy(substring, str + index, j - index);
     substring[j - 1 + 1] = '\0';
-    appendToken(t_stack, (Token){STRING, substring});
+    append_token(t_stack, (Token){STRING, substring});
     return j;
 }
 
-static inline size_t handleNumeric(TokenStack *t_stack, char *str,
+static inline size_t handle_numeric(TokenStack *t_stack, char *str,
                                    size_t str_len, size_t index) {
     size_t j = index;
     while (j < str_len && isdigit(str[j])) {
@@ -26,7 +26,7 @@ static inline size_t handleNumeric(TokenStack *t_stack, char *str,
     char *substring = malloc(sizeof(char) * (j - index + 1));
     strncpy(substring, str + index, j - index);
     substring[j - 1 + 1] = '\0';
-    appendToken(t_stack, (Token){NUMERIC, substring});
+    append_token(t_stack, (Token){NUMERIC, substring});
     return j;
 }
 
@@ -38,45 +38,45 @@ void tokenize(TokenStack *t_stack, char *str) {
         c = str[i];
 
         if (isalpha(c)) {
-            i = handleAlpha(t_stack, str, str_len, i);
+            i = handle_alpha(t_stack, str, str_len, i);
             continue;
         }
 
         if (isdigit(c)) {
-            i = handleNumeric(t_stack, str, str_len, i);
+            i = handle_numeric(t_stack, str, str_len, i);
             continue;
         }
 
         switch (c) {
         case '(':
-            appendToken(t_stack, (Token){L_PAREN, "("});
+            append_token(t_stack, (Token){L_PAREN, "("});
             break;
         case ')':
-            appendToken(t_stack, (Token){R_PAREN, ")"});
+            append_token(t_stack, (Token){R_PAREN, ")"});
             break;
         case ',':
-            appendToken(t_stack, (Token){COMMA, ","});
+            append_token(t_stack, (Token){COMMA, ","});
             break;
         case '.':
-            appendToken(t_stack, (Token){OPERATOR, "."});
+            append_token(t_stack, (Token){OPERATOR, "."});
             break;
         case '+':
-            appendToken(t_stack, (Token){OPERATOR, "+"});
+            append_token(t_stack, (Token){OPERATOR, "+"});
             break;
         case '-':
-            appendToken(t_stack, (Token){OPERATOR, "-"});
+            append_token(t_stack, (Token){OPERATOR, "-"});
             break;
         case '*':
-            appendToken(t_stack, (Token){OPERATOR, "*"});
+            append_token(t_stack, (Token){OPERATOR, "*"});
             break;
         case '/':
-            appendToken(t_stack, (Token){OPERATOR, "/"});
+            append_token(t_stack, (Token){OPERATOR, "/"});
             break;
         case '^':
-            appendToken(t_stack, (Token){OPERATOR, "^"});
+            append_token(t_stack, (Token){OPERATOR, "^"});
             break;
         case '!':
-            appendToken(t_stack, (Token){OPERATOR, "!"});
+            append_token(t_stack, (Token){OPERATOR, "!"});
         case ' ':
             i++;
             continue;

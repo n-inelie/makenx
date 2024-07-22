@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-static inline void handleStringNode(Node *n, Symbol sym,
+static inline void handle_string_node(Node *n, Symbol sym,
                                     size_t sub_nodes_count) {
     n->sub_nodes_count = sub_nodes_count;
     n->sub_nodes = malloc(sizeof(Node) * sub_nodes_count);
@@ -53,7 +53,7 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
             case POW:
             case LOGAB:
             case PERIOD:
-                handleStringNode(n + fill, sym, 2);
+                handle_string_node(n + fill, sym, 2);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
@@ -66,7 +66,7 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
             case SIN:
             case COS:
             case TAN:
-                handleStringNode(n + fill, sym, 1);
+                handle_string_node(n + fill, sym, 1);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
