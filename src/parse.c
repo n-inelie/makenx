@@ -26,6 +26,11 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
         case L_PAREN:
             break;
         case R_PAREN:
+            if (i - stack_index - 1 != fill) {
+                fprintf(stderr, "Error: Not enough args provided for %s\n",
+                        t_stack->tokens[stack_index - 1].text);
+                exit(EXIT_FAILURE);
+            }
             break;
         case COMMA:
             break;

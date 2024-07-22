@@ -1,5 +1,6 @@
 #include "makenx.h"
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,8 +16,9 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    if (argc > 2) {
-        fprintf(stderr, "Too many arguments provided\n");
+    if (argc > 3) {
+        fprintf(stderr, "Error: Too many arguments provided\n"
+                        "Use 'help' to print available commands\n");
         return 1;
     }
 
@@ -24,24 +26,34 @@ int main(int argc, char **argv) {
     sprintf(buffer, "%s", argv[1]);
 
     if (strncmp(buffer, "help", 4) == 0) {
-        printf("help        Prints this message\n"
-               "<string>    Evaluates the given string\n");
+        printf("help               Prints this message\n"
+               "<string>           Evaluates the given string\n"
+               "<string> --tree    Evaluates the given string and prints the "
+               "tree\n");
+        return 1;
+    }
+
+    bool print_node = false;
+    if (argc == 3 && strncmp(argv[2], "--tree", 6) == 0) {
+        print_node = true;
+    } else if (argc != 2) {
+        fprintf(stderr, "Error: Invalid arguments provided\n"
+                        "Use 'help' to print "
+                        "available commands\n");
+        exit(EXIT_FAILURE);
     }
 
     TokenStack *t_stack = CreateStack(16);
     Stats stats = {0, 0, 0, 0};
 
     tokenize(&stats, t_stack, buffer);
-    filterTokenStack(t_stack);
 
     if (stats.l_paren_count != stats.r_paren_count) {
         fprintf(stderr, "Error: Failed to parse, missing parenthesis\n");
         exit(EXIT_FAILURE);
     }
 
-    for (size_t i = 0; i < t_stack->size; ++i) {
-        printf("%s\n", t_stack->tokens[i].text);
-    }
+    filterTokenStack(t_stack);
 
     Node *root = malloc(sizeof(Node));
     root->sym = ROOT;
@@ -52,11 +64,11 @@ int main(int argc, char **argv) {
     initOMap();
     parse(t_stack, 0, root);
 
-    printNode(root, 0);
-
     printf("%f\n", evaluate(root));
 
-    printNode(root, 0);
+    if (print_node) {
+        printNode(root, 0);
+    }
 
     destroyNode(root);
     destroyTokenStack(t_stack);

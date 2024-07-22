@@ -20,7 +20,7 @@ $(TARGET): $(objects)
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(C_FLAGS) $(INCLUDE_FLAGS) -c $< -o $@
 
-.PHONY: clean debug
+.PHONY: clean debug optimize
 
 clean:
 	rm -rf $(TARGET) $(BUILD_DIR)
@@ -28,3 +28,7 @@ clean:
 DEBUG_FLAGS := -glldb
 debug: C_FLAGS += $(DEBUG_FLAGS)
 debug: $(TARGET)
+
+OPTIMIZE_FLAGS := -O3
+optimize: C_FLAGS += $(OPTIMIZE_FLAGS)
+optimize: $(TARGET)
