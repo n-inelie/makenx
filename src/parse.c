@@ -59,81 +59,95 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case SUBTRACT:
                 handleStringNode(n + fill, SUBTRACT, 2);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case DIVIDE:
                 handleStringNode(n + fill, DIVIDE, 2);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case POW:
                 handleStringNode(n + fill, POW, 2);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case FACT:
                 handleStringNode(n + fill, FACT, 1);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case LN:
                 handleStringNode(n + fill, LN, 1);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case LOG10:
                 handleStringNode(n + fill, LOG10, 1);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case LOG2:
                 handleStringNode(n + fill, LOG2, 1);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case LOGAB:
                 handleStringNode(n + fill, LOGAB, 2);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case SIN:
                 handleStringNode(n + fill, SIN, 1);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case COS:
                 handleStringNode(n + fill, COS, 1);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case TAN:
                 handleStringNode(n + fill, TAN, 1);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
                 break;
             case PERIOD:
                 handleStringNode(n + fill, PERIOD, 2);
                 parse(t_stack, ++i, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
+                i++;
+                break;
             default:
                 fprintf(stderr,
-                        "Error: Invalid string %s\n"
+                        "Error: Invalid string '%s'\n"
                         "Variable support is yet to be added\n",
                         t.text);
                 exit(EXIT_FAILURE);

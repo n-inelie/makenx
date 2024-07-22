@@ -42,7 +42,16 @@ void printNode(Node *n, size_t padding) {
     case PERIOD:
         printf("period ");
         break;
-    default:
+    case SIN:
+        printf("sin ");
+        break;
+     case COS:
+        printf("cos ");
+        break;
+     case TAN:
+        printf("tan ");
+        break;
+  default:
         break;
     }
     printf("%f\n", n->value);
