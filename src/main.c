@@ -7,8 +7,6 @@
 
 #define BUFFER_SIZE 4096
 
-Symbol OMap[1024];
-
 int main(int argc, char **argv) {
     if (argc == 1) {
         fprintf(stderr, "Error: No input string/file provided\n"
@@ -61,7 +59,6 @@ int main(int argc, char **argv) {
     root->sub_nodes = malloc(sizeof(Node *));
     root->value = NAN;
 
-    initOMap();
     parse(t_stack, 0, root);
 
     printf("%f\n", evaluate(root));

@@ -58,9 +58,7 @@ typedef enum {
     PERIOD,
 } Symbol;
 
-extern Symbol OMap[1024];
-void initOMap(void);
-size_t hash(char *str);
+Symbol GetSymbol(char *str);
 
 typedef struct node {
     Symbol sym;

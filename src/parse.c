@@ -15,6 +15,7 @@ static inline void handleStringNode(Node *n, Symbol sym,
 void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
     size_t fill = 0;
     Token t;
+    Symbol sym;
     Node *n = malloc(sizeof(Node) * current_node->sub_nodes_count);
 
     for (size_t i = stack_index; i < t_stack->size; ++i) {
@@ -38,7 +39,8 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
             fprintf(stderr, "Error: (dev) Could not filter the token stack\n");
             break;
         case STRING:
-            switch (OMap[hash(t.text)]) {
+            sym = GetSymbol(t.text);
+            switch (sym) {
             case ADD:
                 handleStringNode(n + fill, ADD, 2);
                 parse(t_stack, ++i, n + fill);
@@ -123,6 +125,11 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
             default:
+                fprintf(stderr,
+                        "Error: Invalid string %s\n"
+                        "Variable support is yet to be added\n",
+                        t.text);
+                exit(EXIT_FAILURE);
                 break;
             }
             break;
