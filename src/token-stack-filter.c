@@ -52,13 +52,6 @@ void filterTokenStack(TokenStack *t_stack) {
                         }
                     }
                 }
-                if (j == 0) {
-                    if (l_paren_count != r_paren_count) {
-                        fprintf(stderr, "Error: Failed to parse, invalid usage "
-                                        "of parenthesis\n");
-                        exit(EXIT_FAILURE);
-                    }
-                }
                 memmove(t_stack->tokens + j + 1, t_stack->tokens + j,
                         sizeof(Token) * (i - j));
                 t_stack->tokens[j] = t_new;
