@@ -1,6 +1,6 @@
 #ifndef PROMPT_H
 #define PROMPT_H
 
-void start_prompt(void);
+void start_prompt(char *str);
 
 #endif

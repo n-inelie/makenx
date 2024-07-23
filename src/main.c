@@ -1,11 +1,6 @@
-#include "makenx.h"
-#include <math.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <threads.h>
 #include "prompt.h"
+#include <stdio.h>
+#include <string.h>
 
 #define BUFFER_SIZE 4096
 
@@ -27,31 +22,12 @@ int main(int argc, char **argv) {
 
     if (strncmp(buffer, "help", 4) == 0) {
         printf("help               Prints this message\n"
-               "<string>           Evaluates the given string\n"
-               "<string> --tree    Evaluates the given string and prints the "
-               "tree\n");
+               "<string>           Starts prompt to perform actions on the "
+               "expression\n");
         return 1;
     }
 
-    start_prompt();
-
-    TokenStack *t_stack = create_token_stack(16);
-    VarStack *v_stack = create_var_stack(4);
-
-    tokenize(t_stack, buffer);
-
-    filter_token_stack(t_stack);
-
-    Node *root = malloc(sizeof(Node));
-    root->sym = ROOT;
-    root->sub_nodes_count = 1;
-    root->sub_nodes = malloc(sizeof(Node *));
-    root->value = NAN;
-
-    parse(t_stack, 0, v_stack, root);
-
-    destroy_node(root);
-    destroy_token_stack(t_stack);
+    start_prompt(buffer);
 
     return 0;
 }
