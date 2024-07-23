@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <threads.h>
+#include "prompt.h"
 
 #define BUFFER_SIZE 4096
 
@@ -14,7 +16,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    if (argc > 3) {
+    if (argc > 2) {
         fprintf(stderr, "Error: Too many arguments provided\n"
                         "Use 'help' to print available commands\n");
         return 1;
@@ -31,15 +33,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    bool print_node_flag = false;
-    if (argc == 3 && strncmp(argv[2], "--tree", 6) == 0) {
-        print_node_flag = true;
-    } else if (argc != 2) {
-        fprintf(stderr, "Error: Invalid arguments provided\n"
-                        "Use 'help' to print "
-                        "available commands\n");
-        exit(EXIT_FAILURE);
-    }
+    start_prompt();
 
     TokenStack *t_stack = create_token_stack(16);
     VarStack *v_stack = create_var_stack(4);
@@ -55,14 +49,6 @@ int main(int argc, char **argv) {
     root->value = NAN;
 
     parse(t_stack, 0, v_stack, root);
-
-    // printf("%f\n", evaluate(root));
-
-    if (print_node_flag) {
-        print_node(root, 0);
-    }
-
-    print_var_stack(v_stack);
 
     destroy_node(root);
     destroy_token_stack(t_stack);
