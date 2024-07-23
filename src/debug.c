@@ -45,16 +45,23 @@ void print_node(Node *n, size_t padding) {
     case SIN:
         printf("sin ");
         break;
-     case COS:
+    case COS:
         printf("cos ");
         break;
-     case TAN:
+    case TAN:
         printf("tan ");
         break;
-  default:
+    case VARIABLE:
+        printf("var %s ", n->v.name);
+        break;
+    default:
         break;
     }
-    printf("%f\n", n->value);
+    if (n->sym == VARIABLE) {
+        printf("%f\n", n->v.value);
+    } else {
+        printf("%f\n", n->value);
+    }
     padding += 2;
     for (size_t i = 0; i < n->sub_nodes_count; ++i) {
         print_node(n->sub_nodes[i], padding);
@@ -62,11 +69,10 @@ void print_node(Node *n, size_t padding) {
 }
 
 void print_var_stack(VarStack *v_stack) {
-    printf("Variables\n--------------------------\n");
     if (v_stack->size == 0) {
         printf("No variables exist currently\n");
         return;
-    } 
+    }
 
     Var v;
     for (size_t i = 0; i < v_stack->size; ++i) {

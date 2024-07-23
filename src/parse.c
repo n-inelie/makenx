@@ -86,6 +86,7 @@ void parse(TokenStack *t_stack, size_t stack_index, VarStack *v_stack,
                 n[fill].sub_nodes = NULL;
                 n[fill].sym = VARIABLE;
                 n[fill].value = NAN;
+                n[fill].v.name = t.text;
 
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;

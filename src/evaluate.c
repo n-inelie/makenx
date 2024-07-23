@@ -4,7 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-double evaluate(Node *n) {
+double evaluate(Node *n, VarStack *v_stack) {
+    if (n->sym == VARIABLE) {
+        n->v.value = get_var_value(v_stack, n->v.name);
+        return n->v.value;
+    }
     if (!isnan(n->value)) {
         return n->value;
     }
@@ -14,7 +18,7 @@ double evaluate(Node *n) {
     switch (n->sub_nodes_count) {
     case 1:
         sub_nodes_value = malloc(sizeof(double) * 1);
-        sub_nodes_value[0] = evaluate(n->sub_nodes[0]);
+        sub_nodes_value[0] = evaluate(n->sub_nodes[0], v_stack);
         switch (n->sym) {
         case ROOT:
             result = sub_nodes_value[0];
@@ -52,8 +56,8 @@ double evaluate(Node *n) {
         break;
     case 2:
         sub_nodes_value = malloc(sizeof(double) * 2);
-        sub_nodes_value[0] = evaluate(n->sub_nodes[0]);
-        sub_nodes_value[1] = evaluate(n->sub_nodes[1]);
+        sub_nodes_value[0] = evaluate(n->sub_nodes[0], v_stack);
+        sub_nodes_value[1] = evaluate(n->sub_nodes[1], v_stack);
         // printf("%f, %f\n", sub_nodes_value[0], sub_nodes_value[1]);
         switch (n->sym) {
         case ADD:
