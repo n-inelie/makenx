@@ -8,9 +8,9 @@
 static inline void command_help(void) {
     printf("help                      Prints this message\n"
            "exit                      Exits the prompt\n"
-           "evaluate                  Prints the result of the expression\n"
+           "eval                      Prints the result of the expression\n"
            "tree                      Prints the expression in tree format\n"
-           "variables                 Prints the variables\n"
+           "vars                      Prints the variables\n"
            "set <var-name> <value>    Assigns <value> to var <var-name>\n");
 }
 
@@ -43,16 +43,17 @@ void start_prompt(char *str) {
             exit(EXIT_SUCCESS);
         } else if (strncmp(command1, "help", 4) == 0) {
             command_help();
-        } else if (strncmp(command1, "evaluate", 8) == 0) {
+        } else if (strncmp(command1, "eval", 4) == 0) {
             if (!are_all_var_set(v_stack)) {
                 printf("You must set values to all variables in order to "
                        "evaluate\n");
+                print_var_stack(v_stack);
                 continue;
             }
             printf("Result: %f\n", evaluate(root, v_stack));
         } else if (strncmp(command1, "tree", 4) == 0) {
             print_node(root, 0);
-        } else if (strncmp(command1, "variables", 9) == 0) {
+        } else if (strncmp(command1, "vars", 4) == 0) {
             print_var_stack(v_stack);
         } else if (strncmp(command1, "set", 3) == 0) {
             int index = does_var_exist(v_stack, command2);
