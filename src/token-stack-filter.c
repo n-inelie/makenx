@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-static inline size_t handleRParen(TokenStack *t_stack, size_t i, Token *t_new) {
+static inline void handle_r_paren(TokenStack *t_stack, size_t i, Token *t_new) {
     size_t j = i - 1;
     size_t r_paren_count = 1;
     size_t l_paren_count = 0;
@@ -22,7 +22,6 @@ static inline size_t handleRParen(TokenStack *t_stack, size_t i, Token *t_new) {
     memmove(t_stack->tokens + j + 1, t_stack->tokens + j,
             sizeof(Token) * (i - j));
     t_stack->tokens[j] = *t_new;
-    return 0;
 }
 
 void filter_token_stack(TokenStack *t_stack) {
@@ -65,7 +64,8 @@ void filter_token_stack(TokenStack *t_stack) {
                 exit(EXIT_FAILURE);
             }
             if (temp.type == R_PAREN) {
-                handleRParen(t_stack, i, &t_new);
+                handle_r_paren(t_stack, i, &t_new);
+                continue;
             }
             t_stack->tokens[i - 1] = t_new;
             t_stack->tokens[i] = temp;
