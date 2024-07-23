@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-TokenStack *create_stack(size_t reserve) {
+TokenStack *create_token_stack(size_t reserve) {
     TokenStack *t_stack = calloc(1, sizeof(*t_stack));
     t_stack->tokens = calloc(reserve, sizeof(Token));
     t_stack->capacity = reserve;

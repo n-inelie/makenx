@@ -9,7 +9,7 @@
 
 int main(int argc, char **argv) {
     if (argc == 1) {
-        fprintf(stderr, "Error: No input string/file provided\n"
+        fprintf(stderr, "Error: No input string provided\n"
                         "Type 'help' to list out available commands\n");
         return 1;
     }
@@ -42,6 +42,7 @@ int main(int argc, char **argv) {
     }
 
     TokenStack *t_stack = create_token_stack(16);
+    VarStack *v_stack = create_var_stack(4);
 
     tokenize(t_stack, buffer);
 
@@ -53,13 +54,15 @@ int main(int argc, char **argv) {
     root->sub_nodes = malloc(sizeof(Node *));
     root->value = NAN;
 
-    parse(t_stack, 0, root);
+    parse(t_stack, 0, v_stack, root);
 
-    printf("%f\n", evaluate(root));
+    // printf("%f\n", evaluate(root));
 
     if (print_node_flag) {
         print_node(root, 0);
     }
+
+    print_var_stack(v_stack);
 
     destroy_node(root);
     destroy_token_stack(t_stack);

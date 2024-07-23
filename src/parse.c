@@ -5,14 +5,20 @@
 #include <string.h>
 
 static inline void handle_string_node(Node *n, Symbol sym,
-                                    size_t sub_nodes_count) {
+                                      size_t sub_nodes_count) {
     n->sub_nodes_count = sub_nodes_count;
     n->sub_nodes = malloc(sizeof(Node) * sub_nodes_count);
     n->sym = sym;
     n->value = NAN;
 }
 
-void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
+void parse(TokenStack *t_stack, size_t stack_index, VarStack *v_stack,
+           Node *current_node) {
+    if (current_node->sub_nodes_count == 0) {
+        fprintf(stderr, "Invalid positioning of %s\n",
+                t_stack->tokens[stack_index - 1].text);
+        exit(EXIT_FAILURE);
+    }
     size_t fill = 0;
     Token t;
     Symbol sym;
@@ -44,7 +50,7 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
             fprintf(stderr, "Error: (dev) Could not filter the token stack\n");
             break;
         case STRING:
-            sym = GetSymbol(t.text);
+            sym = get_symbol(t.text);
             switch (sym) {
             case ADD:
             case MULTIPLY:
@@ -54,7 +60,7 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
             case LOGAB:
             case PERIOD:
                 handle_string_node(n + fill, sym, 2);
-                parse(t_stack, ++i, n + fill);
+                parse(t_stack, ++i, v_stack, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 i++;
@@ -67,17 +73,22 @@ void parse(TokenStack *t_stack, size_t stack_index, Node *current_node) {
             case COS:
             case TAN:
                 handle_string_node(n + fill, sym, 1);
-                parse(t_stack, ++i, n + fill);
+                parse(t_stack, ++i, v_stack, n + fill);
                 current_node->sub_nodes[fill] = n + fill;
                 fill++;
                 i++;
                 break;
             default:
-                fprintf(stderr,
-                        "Error: Invalid string '%s'\n"
-                        "Variable support is yet to be added\n",
-                        t.text);
-                exit(EXIT_FAILURE);
+                if (does_var_exist(v_stack, t.text) == -1) {
+                    append_var(v_stack, (Var){t.text, NAN});
+                }
+                n[fill].sub_nodes_count = 0;
+                n[fill].sub_nodes = NULL;
+                n[fill].sym = VARIABLE;
+                n[fill].value = NAN;
+
+                current_node->sub_nodes[fill] = n + fill;
+                fill++;
                 break;
             }
             break;

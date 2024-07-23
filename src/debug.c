@@ -60,3 +60,17 @@ void print_node(Node *n, size_t padding) {
         print_node(n->sub_nodes[i], padding);
     }
 }
+
+void print_var_stack(VarStack *v_stack) {
+    printf("Variables\n--------------------------\n");
+    if (v_stack->size == 0) {
+        printf("No variables exist currently\n");
+        return;
+    } 
+
+    Var v;
+    for (size_t i = 0; i < v_stack->size; ++i) {
+        v = v_stack->vars[i];
+        printf("%s: %f\n", v.name, v.value);
+    }
+}

@@ -1,7 +1,7 @@
 #include "makenx.h"
 #include <string.h>
 
-Symbol GetSymbol(char *str) {
+Symbol get_symbol(char *str) {
     if (strncmp(str, "add", 3) == 0) {
         return ADD;
     } else if (strncmp(str, "mul", 3) == 0) {
